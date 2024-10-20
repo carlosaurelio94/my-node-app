@@ -10,20 +10,23 @@ const transporter = nodemailer.createTransport({
 });
 
 const connection = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
+    host: 'mysql',
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
 });
 
-connection.connect((err) => {
-    if (err) {
-        console.error('Error connecting to the database:', err.stack);
-        return;
-    }
-    console.log('Connected to the database.');
-});
-
+function connectWithRetry() {
+    connection.connect((err) => {
+        if (err) {
+            console.error('Error connecting to the database, retrying...', err);
+            setTimeout(connectWithRetry, 2000);  // Reintentar después de 2 segundos
+        } else {
+            console.log('Connected to the database.');
+        }
+    });
+}
+connectWithRetry();
 
 function sendMail(mailContent) {
     connection.ping((err) => { console.log(err) });
