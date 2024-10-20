@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const connection = mysql.createConnection({
-    host: process.env.DB_HOST,
+    host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
@@ -44,7 +44,7 @@ function sendMail(mailContent) {
             INSERT INTO emails_sent (email_to, email_from, sent_date) 
             VALUES (?, ?, NOW())
         `;
-        
+
         connection.query(query, [mailContent.to, mailOptions.from], (err, result) => {
             if (err) {
                 console.error('Error inserting data into the database:', err.stack);

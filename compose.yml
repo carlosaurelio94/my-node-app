@@ -7,7 +7,7 @@ services:
       dockerfile: dockerfile
     environment:
       - PORT=${PORT}
-      - MYSQL_HOST=mysql
+      - MYSQL_HOST=${MYSQL_HOST}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
