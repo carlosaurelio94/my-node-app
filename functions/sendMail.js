@@ -16,10 +16,16 @@ const connection = mysql.createConnection({
     database: process.env.MYSQL_DATABASE
 });
 
+console.log('Connecting to MySQL with:', {
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    database: process.env.MYSQL_DATABASE
+});
+
 connection.connect((err) => {
     if (err) {
         console.error('Error connecting to the database, retrying...', err);
-        return;  // Reintentar después de 2 segundos
+        return;
     } else {
         console.log('Connected to the database.');
     }
