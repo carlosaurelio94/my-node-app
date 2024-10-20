@@ -1,12 +1,30 @@
 // index.js
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3004;
+const cron = require('node-cron');
+const path = require('path');
 
-app.get('/', (req, res) => {
+app.use(express.static(path.join(__dirname, 'public')));
+
+const sendMail = require('./functions/sendMail');
+
+let mailContent = {
+    to: 'carlosarc10@gmail.com',
+    subject: 'Notification',
+    text: "It's time to do something different"
+}
+
+cron.schedule('0 10 * * *', () => {
+    sendMail(mailContent)
+});
+
+app.get('/send', (req, res) => {
+    sendMail(mailContent)
     res.send('¡Hola, Docker!');
 });
 
 app.listen(PORT, () => {
-    console.log(`Servidor escuchando en el puerto ${PORT}`);
+    console.log(`Server listening on port: ${PORT}`);
 });

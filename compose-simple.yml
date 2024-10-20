@@ -1,0 +1,21 @@
+services:
+  my-node-app: # Nombre que le doy a la app
+    container_name: node-container # Nombre que le doy al contenedor
+    image: node-image:latest # Nombre que le doy a la imagen
+    build:
+      context: .
+      dockerfile: dockerfile # Uso el dockerfile para que cree la imagen
+    environment:
+      - PORT=${PORT}
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - .:/usr/src/app  # Mapea todo el directorio del proyecto local al contenedor y persiste la información
+      - node-volume:/usr/src/app/data  # Usar el volumen nombrado
+    networks:
+      - my_custom_network
+
+volumes:
+  node-volume:
+networks:
+  my_custom_network:  # Aquí defines la red personalizada
