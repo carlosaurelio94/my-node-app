@@ -25,7 +25,9 @@ connection.connect((err) => {
 });
 
 
-function sendMail(mailContent, userId) {
+function sendMail(mailContent) {
+    connection.ping((err) => { console.log(err) });
+
     const mailOptions = {
         from: 'notificacionesautomaticas2024@gmail.com',
         to: mailContent.to,
@@ -42,7 +44,7 @@ function sendMail(mailContent, userId) {
             INSERT INTO emails_sent (email_to, email_from, sent_date) 
             VALUES (?, ?, NOW())
         `;
-        console.log(query)
+        
         connection.query(query, [mailContent.to, mailOptions.from], (err, result) => {
             if (err) {
                 console.error('Error inserting data into the database:', err.stack);
