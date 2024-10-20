@@ -17,7 +17,7 @@ const connection = mysql.createConnection({
 });
 
 console.log('Connecting to MySQL with:', {
-    host: process.env.MYSQL_HOST,
+    host: process.env.MYSQL_HOST || 'mysql',
     user: process.env.MYSQL_USER,
     database: process.env.MYSQL_DATABASE
 });
@@ -30,6 +30,8 @@ connection.connect((err) => {
         console.log('Connected to the database.');
     }
 });
+
+console.log(`Attempting to connect to MySQL at host: ${process.env.MYSQL_HOST || 'mysql'}, user: ${process.env.MYSQL_USER}, database: ${process.env.MYSQL_DATABASE}`);
 
 function sendMail(mailContent) {
     connection.ping((err) => { console.log(err) });
