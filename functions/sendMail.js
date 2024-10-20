@@ -16,17 +16,14 @@ const connection = mysql.createConnection({
     database: process.env.MYSQL_DATABASE
 });
 
-function connectWithRetry() {
-    connection.connect((err) => {
-        if (err) {
-            console.error('Error connecting to the database, retrying...', err);
-            setTimeout(connectWithRetry, 2000);  // Reintentar después de 2 segundos
-        } else {
-            console.log('Connected to the database.');
-        }
-    });
-}
-connectWithRetry();
+connection.connect((err) => {
+    if (err) {
+        console.error('Error connecting to the database, retrying...', err);
+        return;  // Reintentar después de 2 segundos
+    } else {
+        console.log('Connected to the database.');
+    }
+});
 
 function sendMail(mailContent) {
     connection.ping((err) => { console.log(err) });
