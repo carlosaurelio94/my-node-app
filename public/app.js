@@ -4,7 +4,7 @@ document.getElementById('emailForm').addEventListener('submit', function(event) 
     const emailTo = document.getElementById('emailTo').value;
 
     fetch('/send', {
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         },
