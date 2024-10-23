@@ -19,7 +19,7 @@ const client = new Client({
 });
 
 console.log('Connecting to PostgreSQL with:', {
-    host: process.env.POSTGRES_HOST || 'postgres',
+    host: process.env.POSTGRES_HOST || 'localhost',
     password: process.env.POSTGRES_PASSWORD,
     user: process.env.POSTGRES_USER,
     database: process.env.POSTGRES_DATABASE
@@ -28,7 +28,7 @@ console.log('Connecting to PostgreSQL with:', {
 // Intentar conectar a la base de datos PostgreSQL
 client.connect((err) => {
     if (err) {
-        console.error('Error connecting to the database, retrying...', err);
+        console.log('Error connecting to the database, retrying...', err);
         return;
     } else {
         console.log('Connected to the PostgreSQL database.');

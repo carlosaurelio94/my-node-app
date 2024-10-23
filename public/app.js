@@ -3,22 +3,21 @@ document.getElementById('emailForm').addEventListener('submit', function(event) 
 
     const emailTo = document.getElementById('emailTo').value;
 
-    fetch('/send', {
-        method: 'GET',
+    axios.get('/send', {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ emailTo }),
+        params: { emailTo } // Usa params para enviar datos en una solicitud GET
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Éxito:', data);
+    .then(response => {
+        console.log('Éxito:', response.data);
         alert('Correo enviado exitosamente!');
     })
-    .catch((error) => {
+    .catch(error => {
         console.error('Error:', error);
         alert('Hubo un error al enviar el correo.');
     });
+    
 });
 
 

@@ -21,7 +21,7 @@ cron.schedule('0 10 * * *', () => {
 });
 
 app.get('/send', (req, res) => {
-    mailContent.to = req.body.emailTo
+    mailContent.to = req.query.emailTo
     sendMail(mailContent)
     res.send('¡Hola, Docker!');
 });
