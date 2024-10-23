@@ -1,34 +1,19 @@
 services:
-  my-node-mysql-app:
-    container_name: node-mysql-container
-    image: node-mysql-image:latest
+  my-node-app:
+    container_name: node-postgres-container
+    image: node-postgres-image:latest
     build:
       context: .
       dockerfile: dockerfile
     environment:
       - PORT=${PORT}
-      - MYSQL_HOST=${MYSQL_HOST}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DATABASE=${POSTGRES_DATABASE}
     ports:
       - "${PORT}:${PORT}"
     volumes:
       - .:/usr/src/app
 
-  mysql:
-    image: mysql:5.7
-    container_name: mysql-container
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
 
-volumes:
-  mysql-data:
