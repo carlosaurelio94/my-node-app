@@ -1,4 +1,30 @@
-document.querySelectorAll('#todo-list li').forEach(item => {
+document.getElementById('emailForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevenir el envío del formulario por defecto
+
+    const emailTo = document.getElementById('emailTo').value;
+
+    fetch('/send', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ emailTo }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Éxito:', data);
+        alert('Correo enviado exitosamente!');
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Hubo un error al enviar el correo.');
+    });
+});
+
+
+
+
+/*document.querySelectorAll('#todo-list li').forEach(item => {
     // Mostrar/ocultar la explicación al hacer clic en la tarea
     item.addEventListener('click', function() {
         const explanation = this.querySelector('.explanation');
@@ -16,4 +42,4 @@ document.querySelectorAll('#todo-list li').forEach(item => {
             item.classList.add('incomplete');
         }
     });
-});
+});*/
