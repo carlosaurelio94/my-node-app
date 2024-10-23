@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const sendMail = require('./functions/sendMail');
 
 let mailContent = {
-    to: 'carlosarc10@gmail.com',
+    to: '',
     subject: 'Notification',
     text: "It's time to do something different"
 }
